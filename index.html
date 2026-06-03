@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cristian & Gui — Una historia en datos 💙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500&family=Caveat:wght@400;600;700&family=Spline+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f7efe4;
+  --cream-2:#fdf8f0;
+  --ink:#1c2438;
+  --ink-soft:#3a4257;
+  --blue:#2f5fe0;        /* el azul de Gui 💙 */
+  --blue-deep:#1a3aa8;
+  --blue-soft:#cdd9fb;
+  --coral:#e8685c;
+  --blush:#f3c7c0;
+  --gold:#c79a4f;
+  --paper-line:#e3d6c3;
+  --shadow:rgba(28,36,56,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Spline Sans',sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* paper grain overlay */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:var(--blue);color:#fff}
+
+h1,h2,h3,.serif{font-family:'Fraunces',serif}
+.script{font-family:'Caveat',cursive}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+section{position:relative}
+
+/* ---------- decorative tags ---------- */
+.kicker{
+  font:600 13px/1 'Spline Sans',sans-serif;
+  letter-spacing:.28em;text-transform:uppercase;
+  color:var(--blue);display:inline-flex;align-items:center;gap:10px;
+}
+.kicker::before{content:"";width:34px;height:1.5px;background:var(--blue)}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:90px 28px 60px;overflow:hidden}
+.hero-grid{max-width:1080px;margin:0 auto;width:100%;display:grid;
+  grid-template-columns:1.15fr .85fr;gap:50px;align-items:center}
+.hero-date{font:600 14px/1 'Spline Sans';letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:26px}
+.hero h1{
+  font-weight:300;font-size:clamp(54px,9vw,118px);line-height:.92;letter-spacing:-.02em;
+}
+.hero h1 .amp{font-style:italic;font-weight:400;color:var(--blue);position:relative}
+.hero h1 .nm{font-weight:600}
+.hero .sub{font-size:clamp(17px,2vw,21px);color:var(--ink-soft);max-width:30ch;margin:30px 0 0;line-height:1.5}
+.hero .sub b{color:var(--ink);font-weight:600}
+.heart-spin{display:inline-block;animation:beat 1.6s ease-in-out infinite;transform-origin:center}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.22)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
+.scroll-cue{margin-top:54px;display:flex;align-items:center;gap:14px;color:var(--ink-soft);font-size:13px;letter-spacing:.2em;text-transform:uppercase}
+.scroll-cue .line{width:1px;height:46px;background:linear-gradient(var(--blue),transparent);animation:drop 1.8s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* polaroid hero photo */
+.polaroid{background:#fff;padding:14px 14px 56px;border-radius:3px;
+  box-shadow:0 26px 50px -18px var(--shadow),0 6px 14px -8px var(--shadow);
+  position:relative}
+.polaroid img{width:100%;display:block;border-radius:1px;filter:saturate(1.02)}
+.polaroid .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;
+  font-family:'Caveat';font-size:25px;color:var(--ink)}
+.polaroid::after{content:"";position:absolute;top:-16px;left:50%;transform:translateX(-50%) rotate(-3deg);
+  width:120px;height:34px;background:rgba(214,196,150,.55);
+  box-shadow:0 3px 8px rgba(0,0,0,.08);border-radius:1px}
+.hero-photo{transform:rotate(3.2deg);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.hero-photo:hover{transform:rotate(0deg) scale(1.02)}
+
+/* floating blobs */
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;z-index:-1}
+.b1{width:420px;height:420px;background:var(--blue-soft);top:-120px;right:-80px}
+.b2{width:360px;height:360px;background:var(--blush);bottom:-120px;left:-120px;opacity:.55}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.08s}
+.reveal[data-d="2"]{transition-delay:.16s}
+.reveal[data-d="3"]{transition-delay:.24s}
+.reveal[data-d="4"]{transition-delay:.32s}
+
+/* ---------- section heading ---------- */
+.sec-head{text-align:center;max-width:720px;margin:0 auto 56px}
+.sec-head h2{font-size:clamp(34px,5vw,58px);font-weight:400;line-height:1.04;letter-spacing:-.015em;margin:20px 0 0}
+.sec-head h2 em{font-style:italic;color:var(--blue)}
+.sec-head p{color:var(--ink-soft);font-size:17px;margin-top:18px}
+.pad{padding:110px 0}
+
+/* underline doodle */
+.udl{position:relative;white-space:nowrap}
+.udl svg{position:absolute;left:-4%;bottom:-14px;width:108%;height:18px}
+
+/* ---------- big counters ---------- */
+.stats-band{background:var(--ink);color:var(--cream-2);padding:90px 0;position:relative;overflow:hidden}
+.stats-band::before{content:"💙";position:absolute;font-size:380px;right:-40px;top:50%;transform:translateY(-50%);opacity:.05}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px 24px}
+.stat .num{font-family:'Fraunces';font-weight:300;font-size:clamp(42px,6vw,76px);line-height:1;color:#fff}
+.stat .num .u{font-size:.4em;color:var(--blue-soft);font-weight:500;margin-left:4px}
+.stat .lbl{margin-top:12px;font-size:14px;letter-spacing:.04em;color:#b9c0d4;max-width:22ch}
+.stat .lbl b{color:var(--blush);font-weight:600}
+
+/* ---------- chat bubbles ---------- */
+.chat{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.bubble{padding:13px 18px;border-radius:20px;font-size:16.5px;max-width:78%;position:relative;line-height:1.4;
+  box-shadow:0 4px 14px -8px var(--shadow)}
+.bubble .meta{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px;opacity:.6}
+.bubble.g{background:#fff;align-self:flex-start;border-bottom-left-radius:5px}
+.bubble.c{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+.bubble.c .meta{color:#dbe4ff}
+
+/* ---------- charts ---------- */
+.card{background:var(--cream-2);border:1px solid var(--paper-line);border-radius:18px;padding:34px;
+  box-shadow:0 18px 40px -30px var(--shadow)}
+.card h3{font-size:24px;font-weight:500;margin-bottom:4px}
+.card .hint{color:var(--ink-soft);font-size:14.5px;margin-bottom:26px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+
+/* balance bar */
+.bal{display:flex;height:62px;border-radius:14px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--paper-line)}
+.bal .seg{display:flex;align-items:center;color:#fff;font-weight:600;font-size:15px;transition:flex 1.4s cubic-bezier(.2,.8,.2,1)}
+.bal .seg.c{background:var(--blue);justify-content:flex-start;padding-left:18px;flex:0}
+.bal .seg.g{background:var(--coral);justify-content:flex-end;padding-right:18px;flex:0}
+.bal-leg{display:flex;justify-content:space-between;margin-top:14px;font-size:14px;color:var(--ink-soft)}
+.dotc{color:var(--blue)}.dotg{color:var(--coral)}
+
+/* month bars */
+.months{display:flex;align-items:flex-end;gap:10px;height:230px;padding-top:10px}
+.mcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+.mbar{width:100%;max-width:46px;background:linear-gradient(var(--blue),var(--blue-deep));border-radius:7px 7px 3px 3px;
+  height:0;transition:height 1.3s cubic-bezier(.2,.8,.2,1);position:relative}
+.mbar span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:600;color:var(--ink-soft);white-space:nowrap;opacity:0;transition:opacity .5s .8s}
+.mbar.peak{background:linear-gradient(var(--coral),#c44b41)}
+.mlbl{font-size:11.5px;color:var(--ink-soft);letter-spacing:.02em}
+
+/* hour radial */
+.clock{display:flex;align-items:flex-end;gap:4px;height:180px}
+.hcol{flex:1;background:var(--blue-soft);border-radius:4px 4px 0 0;height:4px;
+  transition:height 1.2s cubic-bezier(.2,.8,.2,1);position:relative}
+.hcol.hot{background:var(--blue)}
+.hcol.night{background:var(--coral)}
+.hrow{display:flex;gap:4px;margin-top:8px}
+.hrow span{flex:1;text-align:center;font-size:9.5px;color:var(--ink-soft)}
+
+/* nickname list */
+.nick{display:flex;flex-direction:column;gap:18px}
+.nrow{display:grid;grid-template-columns:130px 1fr 54px;align-items:center;gap:14px}
+.nrow .nm{font-family:'Fraunces';font-style:italic;font-size:20px}
+.ntrack{height:13px;background:#fff;border:1px solid var(--paper-line);border-radius:8px;overflow:hidden}
+.nfill{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--coral));border-radius:8px;transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+.nrow .nv{font-weight:700;text-align:right;font-size:17px;color:var(--blue-deep)}
+
+/* emoji podium */
+.emos{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.emo{background:var(--cream-2);border:1px solid var(--paper-line);border-radius:16px;padding:18px 22px;text-align:center;min-width:96px;
+  transition:transform .3s}
+.emo:hover{transform:translateY(-6px) rotate(-3deg)}
+.emo .e{font-size:40px;line-height:1}
+.emo .n{font-weight:700;font-size:20px;margin-top:8px;color:var(--ink)}
+.emo .t{font-size:12px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+
+/* fun fact cards */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.fact{background:var(--cream-2);border:1px solid var(--paper-line);border-radius:18px;padding:30px;position:relative;overflow:hidden;
+  transition:transform .4s,box-shadow .4s}
+.fact:hover{transform:translateY(-6px);box-shadow:0 24px 40px -28px var(--shadow)}
+.fact .ic{font-size:34px}
+.fact .big{font-family:'Fraunces';font-weight:300;font-size:46px;line-height:1;margin:14px 0 6px;color:var(--blue-deep)}
+.fact p{color:var(--ink-soft);font-size:15.5px}
+.fact p b{color:var(--ink);font-weight:600}
+.fact::after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:var(--blush);opacity:.25;right:-30px;bottom:-30px}
+
+/* gallery */
+.gal{columns:3;column-gap:18px}
+.gal figure{break-inside:avoid;margin:0 0 18px;background:#fff;padding:11px 11px 14px;border-radius:3px;
+  box-shadow:0 16px 34px -22px var(--shadow);transition:transform .5s}
+.gal figure:nth-child(odd){transform:rotate(-1.6deg)}
+.gal figure:nth-child(even){transform:rotate(1.4deg)}
+.gal figure:hover{transform:rotate(0) scale(1.03);z-index:5;position:relative}
+.gal img{width:100%;display:block;border-radius:2px}
+.gal figcaption{font-family:'Caveat';font-size:20px;text-align:center;margin-top:8px;color:var(--ink-soft)}
+
+/* florianópolis cover */
+.flori-cover{max-width:400px;margin:0 auto}
+.flori-cover .polaroid{transform:rotate(-1.6deg);transition:transform .5s}
+.flori-cover .polaroid:hover{transform:rotate(0)}
+
+/* fun duo */
+.fun-duo{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.fun-card{margin:0;background:#fff;padding:11px 11px 0;border-radius:3px;width:300px;max-width:42vw;
+  box-shadow:0 18px 38px -24px var(--shadow);transition:transform .5s}
+.fun-card:first-of-type{transform:rotate(-2deg)}
+.fun-card:last-of-type{transform:rotate(2deg)}
+.fun-card:hover{transform:rotate(0) scale(1.03);z-index:3}
+.fun-card img{width:100%;height:330px;object-fit:cover;display:block;border-radius:2px}
+.fun-card figcaption{font-family:'Caveat';font-size:21px;text-align:center;color:var(--ink-soft);padding:10px 6px 16px;line-height:1.25}
+.fun-card figcaption b{font-family:'Spline Sans';font-weight:600;font-size:15px;color:var(--ink);display:block;margin-bottom:2px}
+.fun-arrow{font-family:'Fraunces';font-size:42px;color:var(--coral);transform:rotate(6deg)}
+@media(max-width:560px){.fun-arrow{transform:rotate(90deg)}.fun-card{max-width:80vw;width:280px}}
+
+/* closing */
+.closing{background:linear-gradient(180deg,var(--cream),#efe3d2);text-align:center;padding:130px 28px}
+.closing .big{font-family:'Fraunces';font-weight:300;font-size:clamp(36px,6vw,72px);line-height:1.06;letter-spacing:-.02em;max-width:16ch;margin:0 auto}
+.closing .big em{font-style:italic;color:var(--blue)}
+.closing .note{font-family:'Caveat';font-size:28px;color:var(--ink-soft);margin-top:36px}
+.closing .sig{margin-top:30px;font-family:'Caveat';font-size:38px;color:var(--blue-deep)}
+.inf{display:inline-block;font-size:40px;color:var(--blue);animation:beat 1.6s ease-in-out infinite}
+
+footer{background:var(--ink);color:#8b94ad;text-align:center;padding:34px;font-size:13px;letter-spacing:.03em}
+footer b{color:var(--blush)}
+
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-photo{max-width:340px;margin:0 auto}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .grid2{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .gal{columns:2}
+  .nrow{grid-template-columns:96px 1fr 44px}
+}
+@media(max-width:520px){
+  .stat-grid{grid-template-columns:1fr 1fr;gap:34px 18px}
+  .gal{columns:1}
+  .months{gap:5px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-date reveal in">2019 — 2026 · y subiendo</div>
+      <h1 class="reveal in" data-d="1">
+        <span class="nm">Cristian</span><br>
+        <span class="amp">&amp;</span> <span class="nm">Gui</span> <span class="heart-spin">💙</span>
+      </h1>
+      <p class="sub reveal in" data-d="2">
+        Nos conocemos desde <b>2019</b>. Esto es lo que pasó cuando dejamos
+        que un chat contara nuestra historia: <b>27.269 mensajes</b> de puro nosotros.
+      </p>
+      <div class="scroll-cue reveal in" data-d="3"><span class="line"></span> desliza</div>
+    </div>
+    <div class="hero-photo">
+      <div class="polaroid">
+        <img src="img/hero.jpg" alt="Cristian y Gui">
+        <div class="cap">nosotros, siempre 💙</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= INTRO QUOTE / first words ================= -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Donde el chat nos reencuentra</span>
+      <h2>El chat arranca a <em>mitad de la historia</em></h2>
+      <p>Estas son las primeras líneas <b>de este teléfono</b> — las de antes se perdieron al cambiar de celu. Para cuando empieza, el “te amo” ya era nuestro de hace años.</p>
+    </div>
+    <div class="chat reveal" data-d="1">
+      <div class="bubble g"><span class="meta">Gui · 16 oct 2025, 19:50</span>recién me despierto</div>
+      <div class="bubble c"><span class="meta">Cristian · 20:32</span>Que peponaaa 😍</div>
+      <div class="bubble g"><span class="meta">Gui</span>más bueno sos te amo</div>
+      <div class="bubble c"><span class="meta">Cristian</span>te amo más mi vida</div>
+      <div class="bubble c"><span class="meta">Cristian</span>yo mas guaguita</div>
+    </div>
+    <p class="script reveal" data-d="2" style="text-align:center;font-size:23px;color:var(--ink-soft);margin-top:30px;max-width:34ch;margin-left:auto;margin-right:auto">…porque nuestra historia no empezó en este chat — solo quedó grabada aquí desde 2025. 💙</p>
+  </div>
+</section>
+
+<!-- ================= BIG NUMBERS ================= -->
+<section class="stats-band">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:64px">
+      <span class="kicker" style="color:var(--blush)">El amor en cifras</span>
+      <h2 style="color:#fff">231 días <em style="color:var(--blue-soft)">contados uno a uno</em></h2>
+    </div>
+    <div class="stat-grid">
+      <div class="stat reveal" data-d="1"><div class="num" data-count="27269"></div><div class="lbl">mensajes en total — un promedio de <b>119 al día</b></div></div>
+      <div class="stat reveal" data-d="2"><div class="num" data-count="350"></div><div class="lbl">veces que se dijeron <b>“te amo”</b> (176 ella, 174 él)</div></div>
+      <div class="stat reveal" data-d="3"><div class="num" data-count="843"></div><div class="lbl">veces que apareció la palabra <b>“amor”</b></div></div>
+      <div class="stat reveal" data-d="4"><div class="num" data-count="229"></div><div class="lbl">días seguidos hablándose — solo <b>2 días</b> en silencio</div></div>
+      <div class="stat reveal" data-d="1"><div class="num" data-count="1843"></div><div class="lbl"><b>risas</b> (jaja/jeje) repartidas entre los dos</div></div>
+      <div class="stat reveal" data-d="2"><div class="num" data-count="96273"></div><div class="lbl"><b>palabras</b> escritas — casi una novela entera</div></div>
+      <div class="stat reveal" data-d="3"><div class="num" data-count="178"></div><div class="lbl"><b>fotos</b> compartidas + 531 stickers</div></div>
+      <div class="stat reveal" data-d="4"><div class="num" data-count="40"></div><div class="lbl">veces que se dijeron <b>“te extraño”</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BALANCE + MONTHS ================= -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Quién habla más</span>
+      <h2>Un equilibrio <em>casi perfecto</em></h2>
+      <p>Después de 27 mil mensajes, la diferencia entre los dos es de apenas un 1%.</p>
+    </div>
+
+    <div class="card reveal" data-d="1" style="margin-bottom:34px">
+      <h3>Reparto de mensajes</h3>
+      <p class="hint">Cristian escribe en ráfagas cortas; Gui manda mensajes más largos (y casi todas las notas de voz 🎙️).</p>
+      <div class="bal" id="bal">
+        <div class="seg c" data-flex="13938">Cristian</div>
+        <div class="seg g" data-flex="13331">Gui</div>
+      </div>
+      <div class="bal-leg">
+        <span><span class="dotc">●</span> Cristian · 13.938 mensajes</span>
+        <span>Gui · 13.331 mensajes <span class="dotg">●</span></span>
+      </div>
+    </div>
+
+    <div class="card reveal" data-d="2">
+      <h3>El pulso de la relación, mes a mes</h3>
+      <p class="hint">Enero de 2026 fue el mes más intenso: <b>5.178 mensajes</b>. El pico de un solo día fue el 10 de febrero, con 852.</p>
+      <div class="months" id="months"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOURS ================= -->
+<section style="padding:0 0 110px">
+  <div class="wrap">
+    <div class="card reveal">
+      <h3>Búhos del amor 🌙</h3>
+      <p class="hint">A qué hora hablan. Dos picos: las <b>6 de la tarde</b> y… la <b>medianoche</b>. Casi 2.000 mensajes nacieron pasada la 1 de la madrugada.</p>
+      <div class="clock" id="clock"></div>
+      <div class="hrow" id="hrow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NICKNAMES ================= -->
+<section class="pad" style="background:linear-gradient(180deg,transparent,rgba(243,199,192,.18),transparent)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">El diccionario de ustedes</span>
+      <h2>Nunca se llamaron <em>por su nombre</em></h2>
+      <p>Cada apodo, contado una por una a lo largo del chat.</p>
+    </div>
+    <div class="card reveal" data-d="1">
+      <div class="nick" id="nick"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EMOJIS ================= -->
+<section style="padding:0 0 110px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Idioma propio</span>
+      <h2>Hablan en <em>emoji</em></h2>
+      <p>El 😭 ganó por paliza — de tanto reír, de tanto sentir. Y el 💙 nunca falta.</p>
+    </div>
+    <div class="emos reveal" data-d="1">
+      <div class="emo"><div class="e">😭</div><div class="n">217</div><div class="t">de risa/emoción</div></div>
+      <div class="emo"><div class="e">🥹</div><div class="n">97</div><div class="t">conmovidos</div></div>
+      <div class="emo"><div class="e">🥺</div><div class="n">50</div><div class="t">ojitos</div></div>
+      <div class="emo"><div class="e">😍</div><div class="n">31</div><div class="t">enamorados</div></div>
+      <div class="emo"><div class="e">💙</div><div class="n">20</div><div class="t">el de Gui</div></div>
+      <div class="emo"><div class="e">🥳</div><div class="n">18</div><div class="t">celebrando</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FUN FACTS ================= -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Datos que solo ustedes entienden</span>
+      <h2>Fun facts <em>marca registrada</em></h2>
+    </div>
+    <div class="facts">
+      <div class="fact reveal" data-d="1"><div class="ic">🩷</div><div class="big">459</div><p>stickers mandó <b>Cristian</b> — contra 72 de Gui. Es el rey indiscutido del sticker.</p></div>
+      <div class="fact reveal" data-d="2"><div class="ic">🎙️</div><div class="big">95<span style="font-size:24px">/97</span></div><p>de las notas de voz son de <b>Gui</b>. Cuando hay algo que contar, ella aprieta el micrófono.</p></div>
+      <div class="fact reveal" data-d="3"><div class="ic">⚖️</div><div class="big">176<span style="font-size:24px"> vs </span>174</div><p>“te amo” de Gui contra los de Cristian. Empate de manual: se quieren <b>exactamente igual</b>.</p></div>
+      <div class="fact reveal" data-d="1"><div class="ic">☀️</div><div class="big">78<span style="font-size:24px">/82</span></div><p>de los “buen día” los manda <b>Gui</b>. La encargada oficial de empezar bien la mañana.</p></div>
+      <div class="fact reveal" data-d="2"><div class="ic">👶</div><div class="big">207</div><p>veces le dijeron <b>“bebé”</b>, 133 “guaguita”, 25 “pepona” y hasta 3 “pechona”. Un zoológico de cariño.</p></div>
+      <div class="fact reveal" data-d="3"><div class="ic">🌙</div><div class="big">1.936</div><p>mensajes a la <b>medianoche</b> en punto. La hora favorita para no querer cortar la conversación.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section style="padding:0 0 110px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">El álbum</span>
+      <h2>Momentos que <em>no caben en datos</em></h2>
+    </div>
+    <div class="gal reveal" data-d="1">
+      <figure><img src="img/costa2.jpg" alt=""><figcaption>juntos frente al mar 💙</figcaption></figure>
+      <figure><img src="img/beso1.jpg" alt=""><figcaption>un beso de los nuestros</figcaption></figure>
+      <figure><img src="img/espejo.jpg" alt=""><figcaption>nuestro espejo favorito</figcaption></figure>
+      <figure><img src="img/ojito.jpg" alt=""><figcaption>su ojito hermoso 👁️</figcaption></figure>
+      <figure><img src="img/costa.jpg" alt=""><figcaption>la costa, ese día</figcaption></figure>
+      <figure><img src="img/abrazo.jpg" alt=""><figcaption>mi pepona y yo</figcaption></figure>
+      <figure><img src="img/cozy.jpg" alt=""><figcaption>tardes de los dos</figcaption></figure>
+      <figure><img src="img/gui.jpg" alt=""><figcaption>mi guaguita</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FLORIANÓPOLIS ================= -->
+<section class="pad" style="background:linear-gradient(180deg,transparent,rgba(205,217,251,.30),transparent)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">El gran viaje · febrero 2026</span>
+      <h2>Florianópolis, <em>Brasil</em> 🇧🇷</h2>
+      <p>Cruzamos medio continente para mirar juntos el mismo atardecer. Açaí en la arena, playas sin fin y nosotros dos.</p>
+    </div>
+    <div class="flori-cover reveal" data-d="1">
+      <div class="polaroid">
+        <img src="img/flori/f11.jpg" alt="">
+        <div class="cap">nuestro atardecer en Floripa 🌅</div>
+      </div>
+    </div>
+    <div class="gal reveal" data-d="2" style="margin-top:46px">
+      <figure><img src="img/flori/f12.jpg" alt=""><figcaption>los dos, el mismo cielo</figcaption></figure>
+      <figure><img src="img/flori/f13.jpg" alt=""><figcaption>mi guaguita al atardecer</figcaption></figure>
+      <figure><img src="img/flori/f14.jpg" alt=""><figcaption>açaí para los dos 🍫</figcaption></figure>
+      <figure><img src="img/flori/f18.jpg" alt=""><figcaption>playa salvaje</figcaption></figure>
+      <figure><img src="img/flori/f09.jpg" alt=""><figcaption>paseos por Floripa</figcaption></figure>
+      <figure><img src="img/flori/f10.jpg" alt=""><figcaption>la playa que amamos</figcaption></figure>
+      <figure><img src="img/flori/f17.jpg" alt=""><figcaption>verano brasilero</figcaption></figure>
+      <figure><img src="img/flori/f04.jpg" alt=""><figcaption>las casitas de Floripa</figcaption></figure>
+      <figure><img src="img/flori/f01.jpg" alt=""><figcaption>siestas de viaje</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MOMENTOS DIVERTIDOS ================= -->
+<section style="padding:0 0 110px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Para morirse de risa</span>
+      <h2>Momentos <em>divertidos</em> 😂</h2>
+      <p>Porque entre tanto amor, también nos cagamos de risa todo el día.</p>
+    </div>
+    <div class="fun-duo reveal" data-d="1">
+      <figure class="fun-card">
+        <img src="img/divertidos/d03.jpg" alt="">
+        <figcaption><b>Le pedí una foto linda…</b><br>y posó como modelo 💁‍♀️</figcaption>
+      </figure>
+      <div class="fun-arrow">→</div>
+      <figure class="fun-card">
+        <img src="img/divertidos/d04.jpg" alt="">
+        <figcaption><b>…y así reaccioné yo</b><br>muerto de risa 😭</figcaption>
+      </figure>
+    </div>
+    <div class="gal reveal" data-d="2" style="columns:2;margin-top:30px;max-width:720px;margin-left:auto;margin-right:auto">
+      <figure><img src="img/divertidos/d01.jpg" alt=""><figcaption>regateando camisetas en la calle 🇧🇷</figcaption></figure>
+      <figure><img src="img/divertidos/d02.jpg" alt=""><figcaption>modo mochilero: media casa al hombro 🎒</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLOSING ================= -->
+<section class="closing">
+  <div class="wrap reveal">
+    <span class="kicker" style="justify-content:center">Y esto es solo el comienzo</span>
+    <p class="big" style="margin-top:30px">Seis años de conocernos.<br>Y esto <em>recién empieza.</em></p>
+    <p class="note">Desde 2019, en cada apodo, cada audio y cada medianoche.</p>
+    <div class="sig">Te amo, Gui <span class="inf">∞</span></div>
+  </div>
+</section>
+
+<footer>
+  Hecho con <b>💙</b> y 27.269 mensajes · Cristian &amp; Gui · 2019 — ∞
+</footer>
+
+<script>
+/* ---------- scroll reveal ---------- */
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); activate(e.target); io.unobserve(e.target);} });
+},{threshold:.18});
+document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+
+/* ---------- count up ---------- */
+function countUp(el){
+  const target=+el.dataset.count, dur=1600, t0=performance.now();
+  const fmt=n=>n.toLocaleString('es-CL');
+  function tick(t){
+    const p=Math.min((t-t0)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=fmt(Math.round(target*e));
+    if(p<1)requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ---------- build month chart ---------- */
+const MONTHS=[["oct·25",2429],["nov",3856],["dic",3384],["ene·26",5178],["feb",4280],["mar",2592],["abr",2673],["may",2686],["jun",191]];
+(function(){
+  const c=document.getElementById('months'); const max=5178;
+  MONTHS.forEach(([lbl,v])=>{
+    const col=document.createElement('div');col.className='mcol';
+    col.innerHTML=`<div class="mbar${v===5178?' peak':''}" data-h="${(v/max*100).toFixed(1)}"><span>${v.toLocaleString('es-CL')}</span></div><div class="mlbl">${lbl}</div>`;
+    c.appendChild(col);
+  });
+})();
+
+/* ---------- build hour chart ---------- */
+const HOURS=[1936,1452,1065,599,173,46,72,162,159,287,511,992,1626,1518,1446,1456,1428,1833,1954,1745,1662,1639,1855,1653];
+(function(){
+  const c=document.getElementById('clock'); const max=Math.max(...HOURS);
+  HOURS.forEach((v,i)=>{
+    const d=document.createElement('div');
+    let cls='hcol'; if(v>1700)cls+=' hot'; if(i<=2||i>=23)cls+=' night';
+    d.className=cls; d.dataset.h=(v/max*100).toFixed(1);
+    c.appendChild(d);
+  });
+  const r=document.getElementById('hrow');
+  ['0','','','3','','','6','','','9','','','12','','','15','','','18','','','21','','23'].forEach(t=>{
+    const s=document.createElement('span');s.textContent=t;r.appendChild(s);
+  });
+})();
+
+/* ---------- nicknames ---------- */
+const NICKS=[["bebé",207],["guaguita",133],["hermosa",27],["pepona",25],["mi amor",24],["preciosa",14],["pechona",3]];
+(function(){
+  const c=document.getElementById('nick'); const max=207;
+  NICKS.forEach(([n,v])=>{
+    const row=document.createElement('div');row.className='nrow';
+    row.innerHTML=`<div class="nm">${n}</div><div class="ntrack"><div class="nfill" data-w="${(v/max*100).toFixed(1)}"></div></div><div class="nv">${v}</div>`;
+    c.appendChild(row);
+  });
+})();
+
+/* ---------- activate animations when section revealed ---------- */
+function activate(el){
+  el.querySelectorAll('[data-count]').forEach(countUp);
+  if(el.querySelector('[data-count]')&&el.classList.contains('stat'))countUp(el.querySelector('[data-count]'));
+  // bars inside
+  el.querySelectorAll('.mbar').forEach(b=>{b.style.height=b.dataset.h+'%';const s=b.querySelector('span');if(s)setTimeout(()=>s.style.opacity=1,700);});
+  el.querySelectorAll('.hcol').forEach(b=>b.style.height=b.dataset.h+'%');
+  el.querySelectorAll('.nfill').forEach(b=>b.style.width=b.dataset.w+'%');
+  const bal=el.querySelector('#bal');
+  if(bal)bal.querySelectorAll('.seg').forEach(s=>s.style.flex=+s.dataset.flex);
+}
+/* run for any counters already in view / inside revealed stat blocks */
+document.querySelectorAll('.stat.reveal').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
